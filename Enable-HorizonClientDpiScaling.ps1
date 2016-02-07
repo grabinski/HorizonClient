@@ -1,6 +1,8 @@
-$registryPath = "HKCU:\software\vmware, inc.\vmware vdm\client"
-$Name = "EnableSessionDPIScaling"
-$propertyType = "DWORD"
-$value = "1"
+$registryPropertyValue = @{
+	Path = "HKCU:\SOFTWARE\VMware, Inc.\VMWare VDM\Client"
+	Name = "EnableSessionDPIScaling"
+	PropertyType = "DWord"
+	Value = "1"
+}
 
-New-ItemProperty -Path $registryPath -Name $name -Value $value -PropertyType $propertyType
+New-ItemProperty @registryPropertyValue
