@@ -9,10 +9,10 @@ if (Test-Path $regPropertyValue.Path) {
     $key = Get-ItemProperty $regPropertyValue.Path
     $value = $key.($regPropertyValue.Name)
 
-    if (($value -ne $null) -and ($value -ne $regPropertyValue.Value)) {
-        Set-ItemProperty @regPropertyValue -PassThru
-    }
-    elseif ($value -eq $null) {
+    if ($value -eq $null) {
         New-ItemProperty @regPropertyValue -PropertyType $propertyType
+    }
+    else {
+        Set-ItemProperty @regPropertyValue -Type $propertyType -PassThru
     }
 }
