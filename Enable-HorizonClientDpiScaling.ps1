@@ -1,8 +1,18 @@
-$registryPropertyValue = @{
+$regPropertyValue = @{
 	Path = "HKCU:\SOFTWARE\VMware, Inc.\VMWare VDM\Client"
 	Name = "EnableSessionDPIScaling"
-	PropertyType = "DWord"
 	Value = "1"
 }
+$propertyType = "DWord"
 
-New-ItemProperty @registryPropertyValue
+if (Test-Path $regPropertyValue.Path) {
+    $key = Get-ItemProperty $regPropertyValue.Path
+    $value = $key.($regPropertyValue.Name)
+
+    if (($value -ne $null) -and ($value -ne $regPropertyValue.Value)) {
+        Set-ItemProperty @regPropertyValue -PassThru
+    }
+    elseif ($value -eq $null) {
+        New-ItemProperty @regPropertyValue -PropertyType $propertyType
+    }
+}
