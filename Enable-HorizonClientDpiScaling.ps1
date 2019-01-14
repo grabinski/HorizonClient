@@ -6,10 +6,10 @@ $regPropertyValue = @{
 $propertyType = 'DWord'
 
 if (Test-Path $regPropertyValue.Path) {
-$key = Get-ItemProperty $regPropertyValue.Path
+    $key = Get-ItemProperty $regPropertyValue.Path
     $value = $key.($regPropertyValue.Name)
 
-    if ($value -eq $null) {
+    if ($null -eq $value) {
         New-ItemProperty @regPropertyValue -PropertyType $propertyType
     }
     else {
